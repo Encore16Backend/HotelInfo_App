@@ -33,15 +33,17 @@
             <a class="btn btn-dark" routerLink="/list" aria-current="page">호텔목록 보러가기</a>&nbsp;&nbsp;
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               메뉴
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" (click)="clickedLoginModal()">로그인</a></li>
-              <li><a class="dropdown-item">로그아웃</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="clickedRegisterModal()">회원가입</a></li>
-              <li><a class="dropdown-item" routerLink="/my">마이페이지</a></li>
+              <li ></li>
+              <li [value]="Loginstate"><a class="dropdown-item" (click)="clickedLoginModal()" >{{Loginstate}}</a></li>
+              <li [value]="mystate"><a class="dropdown-item" (click)="clickedRegisterModal()" >{{mystate}}</a></li>
+              <!-- <li *ngIf="loginid === null"><a class="dropdown-item" (click)="clickedRegisterModal()">회원가입</a></li>
+              <li *ngIf="loginid !== null"><a class="dropdown-item" (click)="clickedRegisterModal()">마이페이지</a></li> -->
+              <li></li>
             </ul>
           </li>
         </ul>
@@ -67,7 +69,8 @@
 <!-- Body -->
 
 <!-- Modal -->
-<div [ngClass]="Loginmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+<div [ngClass]="Loginmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,20 +79,52 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width: 50%; float: none; margin: 0 auto" >
-      <input type="text"  placeholder="아이디"><br>
-      <br/>
-      <input type="password"  placeholder="비밀번호">
+      <div class="modal-body">
+        <form class="form-floating" (ngSubmit)="loginUser(loginForm)" #loginForm="ngForm" >
+          <div class="form-floating" style="width: 30%; float: none; margin: 0 auto">
+            <input type="text" class="form-control" ngModel name="userId" required minlength="8" pattern="[A-Za-z0-9]+"
+              #username="ngModel"> <label>아이디 입력</label>
+            <ul>
+              <li class="help-block" *ngIf="!username.valid && username.touched">유효하지 않은 아이디입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.required && username.touched">아이디는 필수 입력사항입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.minlength && username.touched">아이디는 반드시 8자 이상입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.pattern && username.touched">아이디에는 한글, 한자, 공백등이 들어갈수 없습니다.
+              </li>
+              <li class="help-block" *ngIf="username.errors?.pattern && username.touched">영어 대/소문자, 숫자만 입력하세요.</li>
+            </ul>
+
+          </div>
+          <br />
+          <div class="form-floating" style="width: 30%; float: none; margin: 0 auto">
+            <input type="password" class="form-control" ngModel name="password" required minlength="8"
+              #password="ngModel">
+            <label>비밀번호 입력</label>
+            <ul>
+              <li class="help-block" *ngIf="!password.valid && password.touched">유효하지 않은 비밀번호입니다.</li>
+              <li class="help-block" *ngIf="password.errors?.required && password.touched">비밀번호는 필수 입력사항입니다.</li>
+              <li class="help-block" *ngIf="password.errors?.minlength && password.touched">비밀번호는 8자 이상입니다.</li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <div style="width: 30%; float: none; margin: 0 auto">
+              <button class="w-100 btn btn-lg btn-primary" type="submit" routerLink="/home" [disabled]="!loginForm.valid">
+                로그인 하기
+              </button>
+
+              <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+            </div>
+            <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
+          </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <a  class="btn btn-primary" routerLink="/"  aria-current="page">로그인 하기</a>
-        <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
-      </div>
+
     </div>
   </div>
 </div>
 
-<div [ngClass]="Registermodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+<div [ngClass]="Registermodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -98,17 +133,23 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width: 50%; float: none; margin: 0 auto">
-      <input type="text"  placeholder="아이디 입력">
-      <br/>
-      <br/>
-      <input type="password"  placeholder="비밀번호 입력">
-      </div>
-      <div class="modal-footer">
-        <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
-        <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
-      </div>
+
+      <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
+        <div class="modal-body" style="width: 50%; float: none; margin: 0 auto">
+
+          <input type="text" ngModel name="userId" placeholder="아이디 입력">
+          <br />
+          <br />
+          <input type="password" ngModel name="password" placeholder="비밀번호 입력">
+
+        </div>
+        <div class="modal-footer">
+          <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="clickedModalClose()">회원가입</button>
+          <button type="button" class="btn btn-secondary" id="add-register" (click)="clickedModalClose()">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
 <!-- Modal -->

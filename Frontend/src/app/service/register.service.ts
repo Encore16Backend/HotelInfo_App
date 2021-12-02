@@ -11,7 +11,7 @@ export class RegisterService {
   private apiUrl = environment.backEndUrl;
   constructor(private http:HttpClient) {}
 
-  public registerRequest(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/user/join`, user)
+  public registerRequest(user: User) {
+    return this.http.post(`${this.apiUrl}/user/join`, user, {responseType:'text'});
   }
 }

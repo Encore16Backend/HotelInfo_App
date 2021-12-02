@@ -21,7 +21,10 @@ export class Reviewservice {
   public deleteReview(seq : bigint, userid : string) {
     return this.http.delete(`${this.serverUrl}/review/delete?seq=${seq}&userid=${userid}`, {responseType:"text"});
   }   
-    
+  public getMyReview(userid : string) {
+    return this.http.get(`${this.serverUrl}/review/myReview/${userid}`);
+  }
+
 
 }
 
