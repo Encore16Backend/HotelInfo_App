@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { HotelMain } from './hotel.model';
-
+import { HotelMain } from '../model/hotel.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelService {
-  private serverUrl="http://10.0.0.13:9000";
+  private serverUrl=environment.backEndUrl;
 
   constructor(private http: HttpClient) { }
 

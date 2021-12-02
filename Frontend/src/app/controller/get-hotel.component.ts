@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { ReviewMain } from '../review.model'
-import { Reviewservice } from '../review.service';
+import { ReviewMain } from '../model/review.model'
+import { Reviewservice } from '../service/review.service';
 import { ActivatedRoute } from '@angular/router';
-import { RoomInfo } from '../room/room.model';
-import { RoomService } from '../room/room.service';
+import { RoomInfo } from '../model/room.model';
+import { RoomService } from '../service/room.service';
+import { HotelMain } from '../model/hotel.model';
+import { HotelDetailMain } from '../model/hotelDetail.model';
+import { HotelDetailService } from '../service/hotel-detail.service';
 
 @Component({
   selector: 'app-get-hotel',
-  templateUrl: './get-hotel.component.html',
-  styleUrls: ['./get-hotel.component.css']
+  templateUrl: '../view/get-hotel.component.html',
+  styleUrls: ['../view/get-hotel.component.css']
 })
 
 export class GetHotelComponent implements OnInit {
@@ -21,7 +24,16 @@ export class GetHotelComponent implements OnInit {
   public loginUserId : string;
   public RoomReview : boolean;
   public roomInfo : RoomInfo[];
-  constructor(private reviewservice: Reviewservice, private route : ActivatedRoute, private roomservice : RoomService) { 
+  
+  
+  public hotelDetail : HotelDetailMain;
+  public oneHotel : HotelMain;
+  public hotelImage : string[];
+  public hotelImageOne : string;
+
+  constructor(private reviewservice: Reviewservice, private hotelDetailService : HotelDetailService,private route : ActivatedRoute, private roomservice : RoomService) { 
+    this.hotelDetail;
+    this.hotelImage = [];
     this.reviews=[];
     this.route.params.subscribe(params => {
       this.paramHotelid = params['hotelid'];
@@ -34,6 +46,8 @@ export class GetHotelComponent implements OnInit {
       this.RoomReview = true;
       // this.getReview();
       this.getRoomInfo();
+      this.getOneHotel(this.paramHotelid);
+      this.getHotelDetail(this.paramHotelid);
     }
 
     public reviewmodel : boolean=false;
@@ -127,6 +141,32 @@ export class GetHotelComponent implements OnInit {
           console.log(this.roomInfo);
         }, (_error:HttpErrorResponse)=>{
           alert("불러오기 실패");
+        }
+      );
+    }
+    public getHotelDetail(hotelid:string):void {
+      this.hotelDetailService.getHotelDetail(hotelid).subscribe(
+        (response : HotelDetailMain) =>{
+        this.hotelDetail=response;
+        this.hotelImage=response["hotelimages"].split(",");
+        this.hotelImageOne = this.hotelImage[0];
+        this.hotelImage = this.hotelImage.slice(1, 3);
+        console.log(response);
+        },
+        (error: HttpErrorResponse) =>{
+          alert(error.message);
+        }
+      );
+    }
+
+    public getOneHotel(hotelid:string):void{
+      this.hotelDetailService.getOneHotel(hotelid).subscribe(
+        (response : HotelMain) =>{
+        this.oneHotel=response;
+        console.log(response);
+        },
+        (error: HttpErrorResponse) =>{
+          alert(error.message);
         }
       );
     }

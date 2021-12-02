@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RoomInfo } from './room.model';
+import { RoomInfo } from '../model/room.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
 
-  private serverUrl = "http://10.0.0.13:9000";
+  private serverUrl = environment.backEndUrl;
 
   constructor(private http:HttpClient) { }
 
