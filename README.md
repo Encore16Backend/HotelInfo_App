@@ -7,6 +7,6 @@ npm i g --only=dev
 
 npm i g @angular/cli
 
-npm upadte
+npm update
 
 vsc 끄고 다시 킴
