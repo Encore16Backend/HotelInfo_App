@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user.model';
+import { User } from '../model/user.model';
 import { NgForm } from '@angular/forms';
-import { LoginService } from '../login/login.service';
+import { LoginService } from '../service/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { HotelService } from '../hotel.service';
+import { HotelService } from '../service/hotel.service';
 import { NgLocaleLocalization } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: '../view/home.component.html',
+  styleUrls: ['../view/home.component.css']
 })
 export class HomeComponent implements OnInit {
 

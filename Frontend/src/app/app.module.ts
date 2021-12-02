@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterService } from './join/register.service';
+
+import { RegisterService } from './service/register.service';
+import { HotelService } from './service/hotel.service';
+
 import { AppComponent } from './app.component';
-import { GetListComponent } from './get-list/get-list.component';
-import { GetHotelComponent } from './get-hotel/get-hotel.component';
-import { HomeComponent } from './home/home.component';
-import { HotelService } from './hotel.service';
+import { GetListComponent } from './controller/get-list.component';
+import { GetHotelComponent } from './controller/get-hotel.component';
+import { HomeComponent } from './controller/home.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},

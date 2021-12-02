@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { HotelMain } from '../hotel.model';
-import { HotelService } from '../hotel.service';
+import { HotelMain } from '../model/hotel.model';
+import { HotelService } from '../service/hotel.service';
 import { HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-get-list',
-  templateUrl: './get-list.component.html',
-  styleUrls: ['./get-list.component.css']
+  templateUrl: '../view/get-list.component.html',
+  styleUrls: ['../view/get-list.component.css']
 })
 
 export class GetListComponent implements OnInit {

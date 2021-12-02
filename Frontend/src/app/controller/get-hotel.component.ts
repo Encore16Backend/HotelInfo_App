@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { ReviewMain } from '../review.model'
-import { Reviewservice } from '../review.service';
+import { ReviewMain } from '../model/review.model'
+import { Reviewservice } from '../service/review.service';
 import { ActivatedRoute } from '@angular/router';
-import { RoomInfo } from '../room/room.model';
-import { RoomService } from '../room/room.service';
+import { RoomInfo } from '../model/room.model';
+import { RoomService } from '../service/room.service';
 
 @Component({
   selector: 'app-get-hotel',
-  templateUrl: './get-hotel.component.html',
-  styleUrls: ['./get-hotel.component.css']
+  templateUrl: '../view/get-hotel.component.html',
+  styleUrls: ['../view/get-hotel.component.css']
 })
 
 export class GetHotelComponent implements OnInit {
