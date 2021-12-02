@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="btn btn-primary" routerLink="/" aria-current="page">호텔 4조 프로젝트</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  </div>
+</nav>
+
+<div class="row align-items-md-stretch">
+  <div class="col-md-6">
+    <img src="../assets/imge/asdad.png" class="" alt="...">
+    <h2>침실</h2>
+    <p>2인 전용 스위트룸</p>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <img src="../assets/imge/e-1-1024x576.jpg" class="" alt="...">
+  <h2>시설 이용</h2>
+  <p>각종 시설이용</p>
+</div>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">시설이용 종류 </h1>
+    <p class="col-md-8 fs-4">바베큐 , 어린이수영장 , 수영장 , 포켓볼 , 근린공원 </p>
+  </div>
+</div>
+
+
+<!-- RoomInfo or ReviewInfo -->
+<button class="btn btn-primary" (click)="ViewRoomReview('room')">Room Info</button>&nbsp;
+<button class="btn btn-primary" (click)="ViewRoomReview('review')">Review</button>
+<br/><br/>
+<!-- Review -->
+<div *ngIf="RoomReview == false" class="ReviewDiv">
+<a class="btn btn-primary" (click)="clickedRegisterModel()" aria-current="page">리뷰 쓰기</a>
+<div>
+  <div >
+    <table class="table table-striped table-hover">
+        <tr>
+          <th scope="col">아이디</th>
+          <th scope="row">호텔별점</th>
+          <th scope="col">리뷰내용</th>
+          
+        </tr>
+      <tbody *ngFor="let review of reviews">
+        <tr>
+          <td>{{review?.userId}}</td>
+          <td>{{review?.reviewScore}}</td>
+          <td>{{review?.reviewContent}}</td>
+          <td><button *ngIf="review?.userId == loginUserId" type="button" class="btn-close" aria-label="Close" (click)="deleteReview(review?.seq, review?.userId)"></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="clickPrev()">❮</button>
+    <button class="btn btn-primary" (click)="clickNext()">❯</button>
+  </div>
+</div>
+</div>
+<!-- Review -->
+
+
+<!-- Room Info -->
+<div *ngIf="RoomReview == true" class="RoomDiv">
+  <table class="table table-striped table-hover">
+    <tbody *ngFor="let room of roomInfo">
+      <tr>
+        <td>{{room?.roomname}}</td>
+        <td>{{room?.info}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Room Info -->
+
+
+
+
+<!-- ReviewModal -->
+<div [ngClass]="reviewmodel ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <h5 class="modal-title" id="exampleModalLabel"><b>리뷰 남기기</b></h5>
+      <div class="modal-header">
+        <div class="mb-3">
+          <div class="modal-body" style="width: 100%; float: none; margin: 0 auto">
+            <form #addForm="ngForm" (ngSubmit)="addReview(addForm)" name="myform" id="myform" method="post">
+              <textarea class="form-control" ngModel name="reviewContent" #reviewContent="ngModel" id="exampleFormControlTextarea1"
+                maxlength="300" rows="3" required></textarea>
+              <input type="hidden" ngModel name="userId"/>
+              <input type="hidden" ngModel name="hotelid"/>
+              <fieldset>
+                <legend>호텔 리뷰 및 평점 주기</legend>
+                <input type="radio" ngModel name="reviewScore" value="5" id="rate5"><label for="rate5">⭐</label>
+                <input type="radio" ngModel name="reviewScore" value="4" id="rate4"><label for="rate4">⭐</label>
+                <input type="radio" ngModel name="reviewScore" value="3" id="rate3"><label for="rate3">⭐</label>
+                <input type="radio" ngModel name="reviewScore" value="2" id="rate2"><label for="rate2">⭐</label>
+                <input type="radio" ngModel name="reviewScore" value="1" id="rate1" required><label for="rate1">⭐</label>
+              </fieldset>
+              <button [disabled]="!addForm.valid" type="submit" class="btn btn-primary" aria-current="page">클릭</button>
+              <button type="button" class="btn-close" id="closeId" aria-label="Close" (click)="clickedModelClose()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+     
