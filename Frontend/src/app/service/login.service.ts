@@ -2,12 +2,13 @@ import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'https://localhost:8080';
+  private apiUrl = environment.backEndUrl;
   constructor(private http:HttpClient) { }
 
   public loginRequest(user: User): Observable<User> {

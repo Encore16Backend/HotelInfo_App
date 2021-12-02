@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, observable, Observable, throwError } from 'rxjs';
 import { ReviewMain } from "../model/review.model";
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Reviewservice {
-  private serverUrl = "http://10.0.0.13:9000";
+  private serverUrl = environment.backEndUrl;
   constructor(private http:HttpClient) { }
 
   public getReview(hotelid : string, pageNo : number): Observable<ReviewMain[]> {
