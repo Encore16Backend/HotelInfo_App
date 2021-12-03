@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { GetListComponent } from './controller/get-list.component';
 import { GetHotelComponent } from './controller/get-hotel.component';
 import { HomeComponent } from './controller/home.component';
+import { HaederComponent } from './controller/haeder.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     GetListComponent,
     GetHotelComponent,
     HomeComponent,
+    HaederComponent,
   ],
   imports: [
     BrowserModule,
