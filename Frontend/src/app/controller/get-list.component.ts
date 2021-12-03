@@ -36,7 +36,6 @@ export class GetListComponent implements OnInit {
     this.item = [];
 
     this.route.params.subscribe(params =>{
-      console.log(params['keyword1']+" "+params["keyword2"]);
       if(params['keyword1'] == undefined || params['keyword1'] == null || params['keyword1'] == '') {
         this.keyword = "";
       } else {
@@ -54,6 +53,14 @@ export class GetListComponent implements OnInit {
   ngOnInit(): void {
     // this.getHotelMains();
     this.getSearchHotelList();
+  }
+
+  public randomNumber(hotelid:string) {
+    console.log(hotelid+" 1");
+    let img = document.getElementById(hotelid);
+    if (img instanceof HTMLImageElement){
+      img.src = '..\\assets\\default\\default'+(Math.floor( Math.random() * 40 )+1)+'.jpg';
+    }
   }
 
   public getHotelMains(): void {
@@ -74,7 +81,6 @@ export class GetListComponent implements OnInit {
     this.hotelService.SearchHotelList(this.keyword, this.local, this.pageNo).subscribe(
       (response)=>{
         this.item = response["content"];
-        console.log(this.item);
         for(let i of this.item) {
           this.hotels.push(i);
         }
