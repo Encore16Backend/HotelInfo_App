@@ -40,7 +40,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li ></li>
               <li [value]="Loginstate"><a class="dropdown-item" (click)="clickedLoginModal()" >{{Loginstate}}</a></li>
-              <li [value]="mystate"><a class="dropdown-item" (click)="clickedRegisterModal()" >{{mystate}}</a></li>
+              <li [value]="mystate"><a class="dropdown-item" (click)="clickedRegisterModal()" >{{mystate}} </a></li>
               <!-- <li *ngIf="loginid === null"><a class="dropdown-item" (click)="clickedRegisterModal()">회원가입</a></li>
               <li *ngIf="loginid !== null"><a class="dropdown-item" (click)="clickedRegisterModal()">마이페이지</a></li> -->
               <li></li>
@@ -68,7 +68,7 @@
   </div>
 <!-- Body -->
 
-<!-- Modal -->
+<!-- loginModal -->
 <div [ngClass]="Loginmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
@@ -123,6 +123,7 @@
   </div>
 </div>
 
+<!--Registermodal-->
 <div [ngClass]="Registermodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
@@ -133,7 +134,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
       <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
         <div class="modal-body" style="width: 50%; float: none; margin: 0 auto">
 
@@ -141,7 +141,6 @@
           <br />
           <br />
           <input type="password" ngModel name="password" placeholder="비밀번호 입력">
-
         </div>
         <div class="modal-footer">
           <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="clickedModalClose()">회원가입</button>
@@ -152,4 +151,70 @@
   </div>
 </div>
 
+<!--huno-->
+<div [ngClass]="reviewmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+  <h5>{{paramUserid}}님의 리뷰 목록</h5>
+  <div class="row justify-content-md-center" style="text-align: center;">
+    <div class="row justify-content-md-center">
+    <table class="w-50 " style="background-color:rgb(214, 214, 214) ; border-radius: 15px;">
+        <tr style="height: 50px;  border-bottom-style: solid; border-bottom-color: rgb(100, 100, 100) ; border-bottom-width: 1px;">
+          <th class="w-30" scope="col">호텔 이름</th>
+          <th class="w-10" scope="row">호텔 별점</th>
+          <th class="w-50" scope="col">리뷰 내용</th>
+          <th class="w-10">삭제</th>
+        </tr>
+      <tbody *ngFor="let review of reviews" style=" border-bottom-color : rgb(163, 163, 163); border-bottom-style:solid; background-color: rgb(240, 240, 240);">
+        <tr style="height: 50px;  border-bottom-style: solid; border-bottom-color: rgb(100, 100, 100) ; border-bottom-width: 1px;" >
+          <td>{{review?.hotelName}}</td>
+          <td>{{review?.reviewScore}}</td>
+          <td>{{review?.reviewContent}}</td>
+          <td><button *ngIf="review?.userId == loginUserId" type="button" class="btn-close" aria-label="Close" (click)="deleteReview(review?.seq, review?.userId)"></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <br>
+      <button class="btn" (click)="clickPrev()" style="background-color: rgb(147, 171, 187)">❮</button>&nbsp;
+      <button class="btn" (click)="clickNext()" style="background-color: rgb(147, 171, 187)">❯</button>&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-secondary" id="add-register" style="background-color: rgb(147, 171, 187) ; color: black;" (click)="clickedModalClose()">Close</button>
+  </div>
+</div>
+</div>
+
+<!--reviewmodal
+<div [ngClass]="reviewmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>{{paramUserid}}님의 리뷰 목록</b></h5>
+                    <div class="modal-header">
+                      <div class="mb-3">
+                        <div class="modal-body" style="width: 100%; float: none; margin: 0 auto">
+                            <div>
+                                <div >
+                                  <table class="table table-striped table-hover">
+                                    <tbody *ngFor="let review of reviews">
+                                      <tr>
+                                        <td>호텔명&nbsp;&nbsp;&nbsp;{{review?.hotelName}}</td>
+                                        <td>호텔별점&nbsp;&nbsp;&nbsp;{{review?.reviewScore}}</td>
+                                        <td>리뷰내용&nbsp;&nbsp;&nbsp;{{review?.reviewContent}}</td>
+                                        
+                                      </tr>
+                                    </tbody>
+<input type="button" (click)="clickedModalClose()">
+                                  </table>
+                                  
+                                </div>
+                            </div>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+-->
+
+      
 <!-- Modal -->

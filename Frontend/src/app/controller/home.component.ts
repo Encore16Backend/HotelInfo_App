@@ -6,7 +6,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { HotelService } from '../service/hotel.service';
 import { NgLocaleLocalization } from '@angular/common';
 import { RegisterService } from '../service/register.service';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Updateservice } from '../service/update.service';
+import { ReviewMain } from "../model/review.model";
+import { Reviewservice } from '../service/review.service';
 
 
 @Component({
@@ -18,34 +21,107 @@ export class HomeComponent implements OnInit {
 
 public Loginmodal : boolean = false;
   public Registermodal : boolean = false;
+  public mypagemodal : boolean = false;
   public local : string = "";
   public keyword : string = "";
   public locations : string[] = ["서울", "부산", "제주", "강원도"];
   public Loginstate : string;
   public mystate : string;
-  constructor(private loginService: LoginService, private hotelGetList : HotelService, private registerService:RegisterService) { }
+  public password : string;
+  public reviews : ReviewMain[];
+  public paramUserid : string;
+  public reviewmodal : boolean = false;
+  public reviewPageNo : number;
+  public maxReviewPagNo : number;
+  public paramHotelid : string;
 
-  ngOnInit(): void {
+  constructor(private loginService: LoginService, private hotelGetList : HotelService, private registerService:RegisterService,
+    private updateservice :Updateservice,private route : ActivatedRoute , private reviewservice:Reviewservice) {
+      this.reviews=[];
+      this.route.params.subscribe(params =>{
+        this.paramUserid = params['userid'];
+      })
+      if(this.paramUserid == '' || this.paramUserid == null || this.paramUserid == undefined){
+        this.paramUserid = localStorage.getItem('userid');
+      }
+      this.reviewPageNo = 1;
+     }
 
+    ngOnInit(): void {
     console.log(localStorage.getItem('userid'));
-      if(localStorage.getItem('userid') != null && localStorage.getItem('userid') != undefined && localStorage.getItem('userid') != ''){
-        console.log("1" + this.Loginstate+localStorage.getItem('userid'));
-        this.Loginstate = '로그아웃';
-        this.mystate='마이페이지';
+    if(localStorage.getItem('userid') != null && localStorage.getItem('userid') != undefined && localStorage.getItem('userid') != ''){
+      console.log("1" + this.Loginstate+localStorage.getItem('userid'));
+        this.Loginstate = '로그 아웃';
+        this.mystate='마이 리뷰';
       } else {
         console.log("2" + this.Loginstate+localStorage.getItem('userid'));
         this.Loginstate = '로그인';
-        this.mystate='회원가입';
+        this.mystate='회원 가입';
       }
       console.log("3" + this.Loginstate+localStorage.getItem('userid'));
-  }
+    }
 
+    
+    public clickPrev(){
+      if(this.reviewPageNo > 1){
+        this.reviewPageNo -= 1;
+      }
+      this.getReview();
+    }
 
-  clickedModalClose(){
-    this.Loginmodal =false;
+    public clickNext(){
+      if (this.reviewPageNo < this.maxReviewPagNo){
+        this.reviewPageNo += 1;
+      }
+      this.getReview();
+    }
+
+    public getReview():void {
+      console.log(this.paramHotelid, this.reviewPageNo);
+      this.reviewservice.getReview(this.paramHotelid, this.reviewPageNo).subscribe(
+        (response) =>{
+          console.log(response['content']);
+          this.reviews = response["content"];
+          this.maxReviewPagNo = Number(response["totalPages"]);
+        },
+        (error: HttpErrorResponse) =>{
+          alert(error.message);
+        }
+      );
+    }
+
+    public CheckUser(loginForm: NgForm) {
+      console.log(loginForm.value);
+      loginForm.controls["userId"].setValue(localStorage.getItem('userid'));
+      console.log(loginForm.value);
+      this.loginService.loginRequest(loginForm.value).subscribe(
+        (response: User) => {
+          alert("ㅇㅋ");
+        },
+        (error: HttpErrorResponse) => {
+          alert("비밀번호가 맞지 않습니다.");
+        }
+      )
+
+    
+    }
+    
+    clickedModalClose(){
+      this.Loginmodal =false;
     this.Registermodal =false;
-
+    this.mypagemodal = false;
+    this.reviewmodal =false;
+    
   }
+  
+  clickedmypage(){
+    this.mypagemodal = true;
+  }
+  
+  clickedCheck(){
+    console.log(localStorage.getItem('userid'));
+}
+
 
   clickedLoginModal(){
     if (this.Loginstate == '로그인'){
@@ -60,10 +136,14 @@ public Loginmodal : boolean = false;
     if (this.mystate == '회원가입'){
       this.Registermodal=true;
     } else {
-      location.pathname="/my";
+      this.getMyReview();
     }
-
+    
+    
   }
+
+
+  
   clickedLogout(){
     return localStorage.removeItem("userid");
   }
@@ -75,7 +155,7 @@ public Loginmodal : boolean = false;
 
   reloadPage() {
     // window.location.reload();
-    location.pathname="/home";
+    location.pathname="/";
   }
   loginUser(loginForm: NgForm):void {
     console.log(loginForm.value);
@@ -91,6 +171,9 @@ public Loginmodal : boolean = false;
       }
     )
   }
+
+
+
 
   public HotelList(searchForm : NgForm) : void{
     this.keyword = searchForm.value['keyword1'];
@@ -122,4 +205,36 @@ public Loginmodal : boolean = false;
     )
   }
 
+
+  updateUser(loginForm: NgForm) {
+    loginForm.controls['userId'].setValue(localStorage.getItem("userid"));
+    this.updateservice.updateRequest(loginForm.value).subscribe(
+      (response: string) => {
+        // loginForm.controls['password'].setValue(localStorage.getItem("password"));
+        alert("비밀번호 변경이 완료되었습니다.");
+        location.pathname="/home";
+      },
+      (error: HttpErrorResponse) => {
+        alert("비밀번호가 맞지 않습니다.");
+        alert(localStorage.getItem("userid"));
+      }
+    )
+  }
+
+  clickedreviewmodal(){
+    this.reviewmodal = true;
+  }
+
+  public getMyReview():void {
+    this.clickedreviewmodal();
+      this.reviewservice.getMyReview(localStorage.getItem('userid')).subscribe(
+        (response : ReviewMain[]) =>{
+        this.reviews=response["content"];
+        console.log(this.reviews)
+      },
+    (error: HttpErrorResponse) =>{
+      alert(error.message);
+    }
+      );
+    }
 }
