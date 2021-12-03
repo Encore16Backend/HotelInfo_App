@@ -30,11 +30,12 @@ export class GetHotelComponent implements OnInit {
   public hotelDetail : HotelDetailMain;
   public oneHotel : HotelMain;
   public hotelImage : string[];
+  public hotelImageTwo : string;
   public hotelImageOne : string;
-
+  public hotelImageThr : string;
+ 
   constructor(private reviewservice: Reviewservice, private hotelDetailService : HotelDetailService,private route : ActivatedRoute, private roomservice : RoomService) { 
     this.hotelDetail;
-    this.hotelImage = [];
     this.reviews=[];
     this.route.params.subscribe(params => {
       this.paramHotelid = params['hotelid'];
@@ -100,7 +101,6 @@ export class GetHotelComponent implements OnInit {
       if(confirm("리뷰 등록을 완료하시겠습니까?")){
         this.reviewservice.addReview(addReviewForm.value).subscribe(
           (response : string)=>{
-            console.log(response);
             addReviewForm.reset();
             this.getReview();
           },
@@ -133,7 +133,6 @@ export class GetHotelComponent implements OnInit {
       console.log(this.paramHotelid, this.reviewPageNo);
       this.reviewservice.getReview(this.paramHotelid, this.reviewPageNo).subscribe(
         (response) =>{
-          console.log(response['content']);
           this.reviews = response["content"];
           this.maxReviewPagNo = Number(response["totalPages"]);
         },
@@ -147,20 +146,20 @@ export class GetHotelComponent implements OnInit {
       this.roomservice.getRoomInfo(this.paramHotelid).subscribe(
         (response) =>{
           this.roomInfo = response;
-          console.log(this.roomInfo);
         }, (_error:HttpErrorResponse)=>{
           alert("불러오기 실패");
         }
       );
     }
+
     public getHotelDetail(hotelid:string):void {
       this.hotelDetailService.getHotelDetail(hotelid).subscribe(
         (response : HotelDetailMain) =>{
         this.hotelDetail=response;
         this.hotelImage=response["hotelimages"].split(",");
         this.hotelImageOne = this.hotelImage[0];
-        this.hotelImage = this.hotelImage.slice(1, 3);
-        console.log(response);
+        this.hotelImageTwo = this.hotelImage[1];
+        this.hotelImageThr = this.hotelImage[2];
         },
         (error: HttpErrorResponse) =>{
           alert(error.message);
@@ -172,7 +171,6 @@ export class GetHotelComponent implements OnInit {
       this.hotelDetailService.getOneHotel(hotelid).subscribe(
         (response : HotelMain) =>{
         this.oneHotel=response;
-        console.log(response);
         },
         (error: HttpErrorResponse) =>{
           alert(error.message);
