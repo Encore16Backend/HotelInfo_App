@@ -11,13 +11,13 @@
       </div>
       <div class="carousel-inner">
         <div  class="carousel-item active">
-            <img src={{hotelImageOne}} class="d-block w-100" alt="..."   style="border-radius: 15px; height: 13cm;">
+            <img src={{hotelImageOne}} class="d-block w-100" (error)="randomNumber(oneHotel?.hotelname)" id="{{oneHotel?.hotelname}}" alt="..."   style="border-radius: 15px; height: 13cm;">
             <div class="carousel-caption d-none d-md-block">
               <h5>{{oneHotel?.hotelname}}</h5>
           </div>
         </div>
         <div *ngFor="let image of hotelImage" class="carousel-item" >
-          <img src="{{image}}" class="d-block w-100" alt="..."  style="border-radius: 15px; height: 13cm;">
+          <img src="{{image}}" class="d-block w-100" (error)="randomNumber(oneHotel?.hotelname)" id="{{oneHotel?.hotelname}}" alt="..."  style="border-radius: 15px; height: 13cm;">
           <div class="carousel-caption d-none d-md-block">
             <h5>{{oneHotel?.hotelname}}</h5>
           </div>

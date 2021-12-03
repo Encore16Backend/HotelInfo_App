@@ -52,6 +52,14 @@ export class GetHotelComponent implements OnInit {
     }
 
     public reviewmodel : boolean=false;
+
+    public randomNumber(hotelid:string) {
+      console.log(hotelid+" 1");
+      let img = document.getElementById(hotelid);
+      if (img instanceof HTMLImageElement){
+        img.src = '..\\assets\\default\\default'+(Math.floor( Math.random() * 40 )+1)+'.jpg';
+      }
+    }
   
     public clickedModelClose(){
       this.reviewmodel=false;
