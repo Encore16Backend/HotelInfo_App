@@ -13,6 +13,7 @@ import { GetHotelComponent } from './controller/get-hotel.component';
 import { HomeComponent } from './controller/home.component';
 import { HaederComponent } from './controller/haeder.component';
 
+
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'list/:keyword1/:keyword2', component: GetListComponent},
