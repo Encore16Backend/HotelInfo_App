@@ -121,5 +121,5 @@ public Loginmodal : boolean = false;
       }
     )
   }
-  
+
 }

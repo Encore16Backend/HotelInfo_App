@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; height: 50px; width: 100%;z-index: 2;">
-
   <div class="container-fluid">
     <a class="btn btn-primary" routerLink="/" aria-current="page">호텔 4조 프로젝트</a>&nbsp;&nbsp;&nbsp;&nbsp;
   </div>
@@ -18,13 +17,13 @@
       </div>
       <div class="carousel-inner">
         <div  class="carousel-item active">
-            <img src={{hotelImageOne}} class="d-block w-100" alt="..."   style="height: 13cm;">
+            <img src={{hotelImageOne}} class="d-block w-100" alt="..."   style="border-radius: 15px; height: 13cm;">
             <div class="carousel-caption d-none d-md-block">
               <h5>{{oneHotel?.hotelname}}</h5>
           </div>
         </div>
         <div *ngFor="let image of hotelImage" class="carousel-item" >
-          <img src="{{image}}" class="d-block w-100" alt="..."  style="height: 13cm;">
+          <img src="{{image}}" class="d-block w-100" alt="..."  style="border-radius: 15px; height: 13cm;">
           <div class="carousel-caption d-none d-md-block">
             <h5>{{oneHotel?.hotelname}}</h5>
           </div>
@@ -58,6 +57,11 @@
             <td style="font-size: smaller;">{{oneHotel?.address}}</td>
           </tr>
           <tr>
+            <td>Check In : {{hotelDetail?.checkin}} / Check Out : {{hotelDetail?.checkout}}
+            </td>
+          </tr>
+
+          <tr>
             <td><div [innerHTML]=hotelDetail?.reservationpage></div></td>
           </tr>
           <tr>
@@ -66,46 +70,45 @@
           <tr>
             <td>
               <table><tr>
-              <td *ngIf="hotelDetail?.seminar=='false'"><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.sports=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.sauna=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.beauty=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.karaoke=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.bbq=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.bicycle=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.fitness=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.publicpc=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>&nbsp;
-              <td *ngIf="hotelDetail?.publicshower=='false'" ><img src="../assets/imge/asdad.png" style="width: 30px; height: 30px;"/></td>
+              <td *ngIf="hotelDetail?.seminar=='false'"><img src="../assets/imge/seminar.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.sports=='false'" ><img src="../assets/imge/sports.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.sauna=='false'" ><img src="../assets/imge/sauna.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.beauty=='false'" ><img src="../assets/imge/beauty.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.karaoke=='false'" ><img src="../assets/imge/karaoke.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.bbq=='false'" ><img src="../assets/imge/bbq.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.bicycle=='false'" ><img src="../assets/imge/bicycle.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.fitness=='false'" ><img src="../assets/imge/fitness.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.publicpc=='false'" ><img src="../assets/imge/publicpc.JPG" style="width: 35px; height: 35px;"/></td>&nbsp;&nbsp;&nbsp;
+              <td *ngIf="hotelDetail?.publicshower=='false'" ><img src="../assets/imge/publicshower.JPG" style="width: 35px; height: 35px;"/></td>
               </tr></table>
             </td>
           </tr>
+          <br>
         </table>
       </div>
 
-      <div class="card-body col-12" style="border-color: rgb(203, 207, 255); border-width: 1px; border-style: solid; border-radius: 10px;">
-        <b>Summay</b><hr>
-        {{hotelDetail?.summary}}
+      <div data-bs-toggle="collapse" href="#close" role="button" aria-expanded="false" aria-controls="close" default="close"  class="card-body col-12 btn" style="border-color: rgb(220, 221, 221); border-width: 1px; border-style: solid; border-radius: 10px;">
+        <b>숙소 소개 펼치기</b><hr>
+        <div class="collapse " id="close">{{hotelDetail?.summary}}</div>
       </div>
       <!-- hotel detail end -->
 
       <!-- RoomInfo or ReviewInfo -->
-      <button class="btn btn-primary col-6" (click)="ViewRoomReview('room')"style="border-radius: 10px;" >Room Info</button>
-      <button class="btn btn-primary col-6" (click)="ViewRoomReview('review')" style="border-radius: 10px;" >Review</button>
+      <button class="btn col-6" (click)="ViewRoomReview('room')" style="border-color: rgb(144, 146, 146); border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(147, 171, 187);" >Room Info</button>
+      <button class="btn col-6" (click)="ViewRoomReview('review')" style="border-color: rgb(144, 146, 146); border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(147, 171, 187);" >Review</button>
     </div>
   </div>
 
-  <br/><br/>
   <!-- Review -->
-  <div *ngIf="RoomReview == false" class="ReviewDiv">
-  <a class="btn btn-primary" (click)="clickedRegisterModel()" aria-current="page">리뷰 쓰기</a>
+  <div *ngIf="RoomReview == false" class="ReviewDiv" >
+  
   <div>
-    <div >
-      <table class="table table-striped table-hover">
+    <div  >
+      <table class="table table-striped table-hover" >
           <tr>
             <th scope="col">아이디</th>
             <th scope="row">호텔별점</th>
             <th scope="col">리뷰내용</th>
-            
           </tr>
         <tbody *ngFor="let review of reviews">
           <tr>
@@ -118,25 +121,27 @@
       </table>
     </div>
     <div>
-      <button class="btn btn-primary" (click)="clickPrev()">❮</button>
-      <button class="btn btn-primary" (click)="clickNext()">❯</button>
+      <button class="btn" (click)="clickPrev()" style="background-color: rgb(147, 171, 187)">❮</button>
+      <button class="btn" (click)="clickNext()" style="background-color: rgb(147, 171, 187)">❯</button>&nbsp;&nbsp;&nbsp;
+      <a class="btn" (click)="clickedRegisterModel()" aria-current="page" style="background-color: rgb(147, 171, 187)">리뷰 쓰기</a>
     </div>
   </div>
+  
   </div>
   <!-- Review -->
 
 
   <!-- Room Info -->
-  <div *ngIf="RoomReview == true" class="RoomDiv">
-    <table class="table table-striped table-hover">
-      <tbody *ngFor="let room of roomInfo">
-        <tr>
-          <td>{{room?.roomname}}</td>
-          <td>{{room?.info}}</td>
+  <table class="table table-striped table-hover" style="border-style : solid; border-radius: 15px; background-color: #fff;" >
+  <div *ngIf="RoomReview == true" class="RoomDiv" >
+      <tbody *ngFor="let room of roomInfo" >
+        <tr >
+          <td style="width: 20%;">{{room?.roomname}}</td>
+          <td style="font-size: smaller;"><div [innerHTML]=room?.info></div></td>
         </tr>
       </tbody>
-    </table>
-  </div>
+    </div>
+  </table>
   <!-- Room Info -->
 
 
