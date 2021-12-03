@@ -157,6 +157,9 @@ public Loginmodal : boolean = false;
     // window.location.reload();
     location.pathname="/";
   }
+
+
+
   loginUser(loginForm: NgForm):void {
     console.log(loginForm.value);
     this.loginService.loginRequest(loginForm.value).subscribe(

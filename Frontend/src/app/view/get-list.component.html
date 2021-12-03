@@ -1,37 +1,37 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-     <a  class="btn btn-primary" routerLink="/"  aria-current="page">호텔 4조 프로젝트</a>&nbsp;&nbsp;&nbsp;&nbsp;
-    <form class="d-flex" >
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button routerLink="/list" class="btn btn-outline-success" type="submit">Search</button>&nbsp;&nbsp;
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; height: 50px; width: 100%;z-index: 2; ">
+    <a  class="btn btn-primary" style="width: 200px;" routerLink="/"  aria-current="page">호텔 4조 프로젝트</a>
+    <div class="container-fluid  justify-content-center" >
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button routerLink="/list" class="btn btn-outline-success" type="submit">Search</button>&nbsp;&nbsp;
     </form>
-  </div>
+    </div>
 </nav>
-<div (scroll)="onScrollEvent($event)"></div>
-<div class="container" id="main-container">
-  <div class="row">
-      <div *ngFor="let hotel of hotels" class="col-md-6 col-xl-3">
-          <div class="card m-b-30">
-              <div class="card-body row">
-                  <div class="col-6">
-                      <!-- Hotel Image -->
-                      <a href=""><img src="{{hotel?.hotelimage}}" alt="" class="img-fluid rounded-circle w-60"></a>
-                  </div>
-                  <div class="col-6 card-title align-self-center mb-0">
-                      <h5>{{hotel?.hotelname}}</h5>
-                  </div>
-              </div>
-              <ul class="list-group list-group-flush">
-                  <!-- <li class="list-group-item"><i class="fa fa-envelope float-right"></i>hotelid : {{hotel?.hotelid}}</li> -->
-                  <!-- <li class="list-group-item"><i class="fa fa-phone float-right"></i>hotelname : {{hotel?.hotelname}}</li> -->
-                  <li class="list-group-item"><i class="fa fa-phone float-right"></i>address : {{hotel?.address}}</li>
-                  <!-- <li class="list-group-item"><i class="fa fa-phone float-right"></i>hotelimage : {{hotel?.hotelimage}}</li> -->
-              </ul>
-              </div>
-              <a  class="btn btn-primary" routerLink="/get/{{hotel?.hotelid}}"  aria-current="page">보러가기</a>
-          </div>
-      </div>
+  <div (scroll)="onScrollEvent($event)"></div>
+  <div  style="background-color:#e9ecef; padding-top: 55px;z-index: 1; ">
+    <div class="container col-md-9" id="main-container">
+        <div class="row">
+            <div *ngFor="let hotel of hotels" class="col-xl-4">
+                <div class="card m-b-30"  style="border-radius: 15px;">
+                    <div class="card-body row"  style="height: 5cm;">
+                        <div class="col-6">
+                            <!-- Hotel Image -->
+                            <a routerLink="/get/{{hotel?.hotelid}}"  aria-current="page"><img src="{{hotel?.hotelimage}}" alt="" class="img-fluid w-60" style="height: 4cm;"></a>
+                        </div>
+                        <div class="col-6 card-title align-self-center mb-0">
+                            <a routerLink="/get/{{hotel?.hotelid}}"  aria-current="page" style="text-decoration-line: none;color: black;">
+                                <table>
+                                    <tr><td>⭐{{hotel?.score}}</td></tr>
+                                    <tr><td><b>{{hotel?.hotelname}}</b></td></tr>
+                                </table>
+                            <div style="font-size: smaller;"><br />{{hotel?.address}}</div>
+                            </a>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-
-
+  
