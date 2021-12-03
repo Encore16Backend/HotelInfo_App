@@ -1,5 +1,5 @@
 <!-- Head -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed;z-index: 2; width: 100%;">
     <div class="container-fluid">
        <a   class="btn btn-dark" routerLink="/"  aria-current="page">호텔 4조 프로젝트</a>&nbsp;&nbsp;&nbsp;&nbsp;
        
@@ -28,20 +28,19 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-           
-            <a class="btn btn-dark" routerLink="/list" aria-current="page">호텔목록 보러가기</a>&nbsp;&nbsp;
-          </li>
+         
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               메뉴
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" (click)="clickedLoginModal()">로그인</a></li>
-              <li><a class="dropdown-item">로그아웃</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="clickedRegisterModal()">회원가입</a></li>
-              <li><a class="dropdown-item" routerLink="/my">마이페이지</a></li>
+              <li ></li>
+              <li [value]="Loginstate"><a class="dropdown-item" (click)="clickedLoginModal()" >{{Loginstate}}</a></li>
+              <li [value]="mystate"><a class="dropdown-item" (click)="clickedRegisterModal()" >{{mystate}}</a></li>
+              <!-- <li *ngIf="loginid === null"><a class="dropdown-item" (click)="clickedRegisterModal()">회원가입</a></li>
+              <li *ngIf="loginid !== null"><a class="dropdown-item" (click)="clickedRegisterModal()">마이페이지</a></li> -->
+              <li></li>
             </ul>
           </li>
         </ul>
@@ -52,22 +51,78 @@
 <!-- Head -->
 
 <!-- Body -->
-  <div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col" *ngFor="let location of locations">
-      <div class="card">
-        <img src="../assets/imge/{{location}}.jpg" class="card-img-top" alt="...">
+<div style="background-color:#e9ecef;">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="z-index: 1; background-color:#e9ecef;">
+  <div class="carousel-indicators">
+    <table>
+        
+        &nbsp;&nbsp;<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        &nbsp;&nbsp;<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        &nbsp;&nbsp;<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+      <tr>
+       <a class="btn btn-secondary" style="height: 45px;" routerLink="/list" aria-current="page">호텔목록 보러가기</a>
+    </tr>
+      </table>                 
+  </div>
+  <div class="carousel-inner">
+    
+    <div class="carousel-item active">
+      <img src="../assets/imge/야경.jpg" class="d-block w-100" alt="..." style="border-radius:15px; height: 500px;  padding-top: 70px;"  >
+      <div class="carousel-caption d-none d-md-block">
+        <h1 style=" padding-bottom: 100px;">첫 여행은 4조와 함께 즐기고</h1>
+
+      </div>
+    </div>
+    <div class="carousel-item">
+      
+      <img src="../assets/imge/야경2.jpg" class="d-block w-100" alt="... "style="border-radius:15px; height: 500px;  padding-top: 70px;">
+      <div class="carousel-caption d-none d-md-block">
+       
+        <h1 style=" padding-bottom: 100px;">편안한 휴식과 힐링을 위해</h1>
+      </div>
+
+    </div>
+    <div class="carousel-item">
+      <img src="../assets/imge/야경3.jpg" class="d-block w-100" alt="..."style="border-radius:15px; height: 500px;  padding-top: 70px;">
+      <div class="carousel-caption d-none d-md-block">
+        <h1 style=" padding-bottom: 100px;">최선을 다해 모시겠습니다</h1>
+        
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+  
+</div>
+
+
+<div class="position-relative">
+  <div class="card-group" class="row row-cols-10 row-cols-md-6 " style="width: 2340px; height: 500px;  background-color:#e9ecef;padding-top:70px">
+    <div class="col-3" *ngFor="let location of locations">
+      <div class="card" style="border-radius:15px;">
+        <img src="../assets/imge/{{location}}.jpg" class="card-img-top" alt="..." style="border-radius:15px;">
         <div class="card-body">
           <h5 class="card-title"><b>{{location}}</b></h5>
-          <p 호텔 class="card-text"> 우리가 추천 하는 {{location}} 호텔</p>
+          <p 호텔 class="card-text"> 최고의 디렉터가 추천하는 {{location}} 호텔</p>
           <button class="btn btn-primary" [routerLink]="['/list', location]">{{location}} 지금 바로 보러가기</button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 <!-- Body -->
 
 <!-- Modal -->
-<div [ngClass]="Loginmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+<div [ngClass]="Loginmodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,20 +131,51 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width: 50%; float: none; margin: 0 auto" >
-      <input type="text"  placeholder="아이디"><br>
-      <br/>
-      <input type="password"  placeholder="비밀번호">
-      </div>
-      <div class="modal-footer">
-        <a  class="btn btn-primary" routerLink="/"  aria-current="page">로그인 하기</a>
-        <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
+      <div class="modal-body">
+        <form class="form-floating" (ngSubmit)="loginUser(loginForm)" #loginForm="ngForm" >
+          <div class="form-floating" style="width: 30%; float: none; margin: 0 auto">
+            <input type="text" class="form-control" ngModel name="userId" required minlength="8" pattern="[A-Za-z0-9]+"
+              #username="ngModel"> <label>아이디 입력</label>
+            <ul>
+              <li class="help-block" *ngIf="!username.valid && username.touched">유효하지 않은 아이디입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.required && username.touched">아이디는 필수 입력사항입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.minlength && username.touched">아이디는 반드시 8자 이상입니다.</li>
+              <li class="help-block" *ngIf="username.errors?.pattern && username.touched">아이디에는 한글, 한자, 공백등이 들어갈수 없습니다.
+              </li>
+              <li class="help-block" *ngIf="username.errors?.pattern && username.touched">영어 대/소문자, 숫자만 입력하세요.</li>
+            </ul>
+
+          </div>
+          <br />
+          <div class="form-floating" style="width: 30%; float: none; margin: 0 auto">
+            <input type="password" class="form-control" ngModel name="password" required minlength="8"
+              #password="ngModel">
+            <label>비밀번호 입력</label>
+            <ul>
+              <li class="help-block" *ngIf="!password.valid && password.touched">유효하지 않은 비밀번호입니다.</li>
+              <li class="help-block" *ngIf="password.errors?.required && password.touched">비밀번호는 필수 입력사항입니다.</li>
+              <li class="help-block" *ngIf="password.errors?.minlength && password.touched">비밀번호는 8자 이상입니다.</li>
+            </ul>
+          </div>
+
+          <div class="modal-footer">
+            <div style="width: 30%; float: none; margin: 0 auto">
+              <button class="w-100 btn btn-lg btn-primary" type="submit" routerLink="/home" [disabled]="!loginForm.valid">
+                로그인 하기
+              </button>
+
+              <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+            </div>
+            <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
-<div [ngClass]="Registermodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
+<div [ngClass]="Registermodal ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -98,17 +184,23 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="width: 50%; float: none; margin: 0 auto">
-      <input type="text"  placeholder="아이디 입력">
-      <br/>
-      <br/>
-      <input type="password"  placeholder="비밀번호 입력">
-      </div>
-      <div class="modal-footer">
-        <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
-        <button type="button" class="btn btn-secondary" (click)="clickedModalClose()">Close</button>
-      </div>
+
+      <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)">
+        <div class="modal-body" style="width: 50%; float: none; margin: 0 auto">
+
+          <input type="text" ngModel name="userId" placeholder="아이디 입력">
+          <br />
+          <br />
+          <input type="password" ngModel name="password" placeholder="비밀번호 입력">
+
+        </div>
+        <div class="modal-footer">
+          <button class="w-100 btn btn-lg btn-primary" type="submit" (click)="clickedModalClose()">회원가입</button>
+          <button type="button" class="btn btn-secondary" id="add-register" (click)="clickedModalClose()">Close</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 </div>
 <!-- Modal -->
