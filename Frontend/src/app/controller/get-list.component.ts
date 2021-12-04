@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HotelMain } from '../model/hotel.model';
 import { HotelService } from '../service/hotel.service';
@@ -9,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-get-list',
   templateUrl: '../view/get-list.component.html',
-  styleUrls: ['../view/get-list.component.css']
+  styleUrls: []
 })
 
 export class GetListComponent implements OnInit {
@@ -20,14 +19,11 @@ export class GetListComponent implements OnInit {
   public keyword : string;
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($evnet){ 
-    if(
-        10+document.documentElement.scrollTop
-          +document.documentElement.clientHeight >= document.documentElement.scrollHeight
-      ){
-        this.pageNo += 1;
-        // this.getHotelMains();
-        this.getSearchHotelList();
-      }
+    if(10+document.documentElement.scrollTop
+          +document.documentElement.clientHeight >= document.documentElement.scrollHeight){
+      this.pageNo += 1;
+      this.getSearchHotelList();
+    }
   }
 
   constructor(private hotelService : HotelService, private route : ActivatedRoute) { 
@@ -47,7 +43,6 @@ export class GetListComponent implements OnInit {
         this.local = params['keyword2'];
       }
     })
-
   }
 
   ngOnInit(): void {
@@ -56,7 +51,6 @@ export class GetListComponent implements OnInit {
   }
 
   public randomNumber(hotelid:string) {
-    console.log(hotelid+" 1");
     let img = document.getElementById(hotelid);
     if (img instanceof HTMLImageElement){
       img.src = '..\\assets\\default\\default'+(Math.floor( Math.random() * 40 )+1)+'.jpg';
@@ -90,5 +84,4 @@ export class GetListComponent implements OnInit {
       }
     )
   }
-
 }

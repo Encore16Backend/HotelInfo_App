@@ -1,19 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../model/user.model';
-import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class LoginService {
+export class Updateservice {
   private apiUrl = environment.backEndUrl;
 
   constructor(private http:HttpClient) { }
 
-  public loginRequest(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/user/login`, user)
+  public updateRequest(user: User) {
+    return this.http.put(`${this.apiUrl}/user/update`, user,  {responseType:'text'})
   }
 }

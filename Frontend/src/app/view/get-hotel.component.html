@@ -86,16 +86,15 @@
           <br>
         </table>
       </div>
-
-      <div data-bs-toggle="collapse" href="#close" role="button" aria-expanded="false" aria-controls="close" default="close"  class="card-body col-12 btn" style="border-color: rgb(220, 221, 221); border-width: 1px; border-style: solid; border-radius: 10px;">
+      <div data-bs-toggle="collapse" href="#close" role="button" aria-expanded="false" aria-controls="close"  class="card-body col-12 btn" style="border-color: rgb(220, 221, 221); border-width: 1px; border-style: solid; border-radius: 10px;">
         <b>숙소 소개 펼치기</b><hr>
         <div class="collapse " id="close">{{hotelDetail?.summary}}</div>
       </div>
       <!-- hotel detail end -->
 
       <!-- RoomInfo or ReviewInfo -->
-      <button class="btn col-6" (click)="ViewRoomReview('room')" style="border-color: rgb(144, 146, 146); border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(147, 171, 187);" >Room Info</button>
-      <button class="btn col-6" (click)="ViewRoomReview('review')" style="border-color: rgb(144, 146, 146); border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(147, 171, 187);" >Review</button>
+      <button class="btn col-6" (click)="ViewRoomReview('room')" style=" border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(240, 240, 240);" >Room Info 보기</button>
+      <button class="btn col-6" (click)="ViewRoomReview('review')" style=" border-width: 1px; border-style: solid; border-radius: 10px; background-color: rgb(240, 240, 240);" >Review 보기</button>
     </div>
   </div>
 
@@ -103,15 +102,16 @@
   <div *ngIf="RoomReview == false" class="ReviewDiv" >
   
   <div>
-    <div  >
-      <table class="table table-striped table-hover" >
-          <tr>
-            <th scope="col">아이디</th>
-            <th scope="row">호텔별점</th>
-            <th scope="col">리뷰내용</th>
+    <div  style="text-align: center;">
+      <table class="w-100" style="background-color:rgb(214, 214, 214) ; border-radius: 15px;">
+          <tr style="height: 50px;  border-bottom-style: solid; border-bottom-color: rgb(100, 100, 100) ; border-bottom-width: 1px;">
+            <th class="w-30" scope="col">아이디</th>
+            <th class="w-10" scope="row">호텔 별점</th>
+            <th class="w-50" scope="col">리뷰 내용</th>
+            <th class="w-10">삭제</th>
           </tr>
-        <tbody *ngFor="let review of reviews">
-          <tr>
+        <tbody *ngFor="let review of reviews" style=" border-bottom-color : rgb(163, 163, 163); border-bottom-style:solid; background-color: rgb(240, 240, 240);">
+          <tr style="height: 50px;  border-bottom-style: solid; border-bottom-color: rgb(100, 100, 100) ; border-bottom-width: 1px;" >
             <td>{{review?.userId}}</td>
             <td>{{review?.reviewScore}}</td>
             <td>{{review?.reviewContent}}</td>
@@ -121,9 +121,11 @@
       </table>
     </div>
     <div>
-      <button class="btn" (click)="clickPrev()" style="background-color: rgb(147, 171, 187)">❮</button>
-      <button class="btn" (click)="clickNext()" style="background-color: rgb(147, 171, 187)">❯</button>&nbsp;&nbsp;&nbsp;
-      <a class="btn" (click)="clickedRegisterModel()" aria-current="page" style="background-color: rgb(147, 171, 187)">리뷰 쓰기</a>
+      <br>
+        <button class="btn" (click)="clickPrev()" style="background-color: rgb(147, 171, 187)">❮</button>&nbsp;
+        <button class="btn" (click)="clickNext()" style="background-color: rgb(147, 171, 187)">❯</button>&nbsp;&nbsp;&nbsp;
+    
+        <a class="btn" (click)="clickedRegisterModel()" aria-current="page" style="background-color: rgb(147, 171, 187);">리뷰 쓰기</a>
     </div>
   </div>
   
@@ -132,21 +134,22 @@
 
 
   <!-- Room Info -->
-  <table class="table table-striped table-hover" style="border-style : solid; border-radius: 15px; background-color: #fff;" >
-  <div *ngIf="RoomReview == true" class="RoomDiv" >
-      <tbody *ngFor="let room of roomInfo" >
-        <tr >
-          <td style="width: 20%;">{{room?.roomname}}</td>
-          <td style="font-size: smaller;"><div [innerHTML]=room?.info></div></td>
+  <div *ngIf="RoomReview == true" class="RoomDiv">
+    <div class="w-100" style="text-align: center;height: 50px; font-size: xx-large; border-radius: 15px; background-color: rgb(136, 136, 136);"><b>Room List</b></div>
+    <table class="w-100" style="text-align: left;">
+    <tbody *ngFor="let room of roomInfo" style="border-bottom-style: solid;">
+        <tr>
+          <div data-bs-toggle="collapse" href="#close2" role="button" aria-expanded="false" aria-controls="close"  class="card-body col-12 btn" style="border-bottom-color : rgb(163, 163, 163); background-color:rgb(240, 240, 240); border-radius: 15px;">
+            <b>{{room?.roomname}}</b><br />
+            <div class="collapse" id="close2">
+              <div [innerHTML]=room?.info></div>
+            </div>
+          </div>
         </tr>
       </tbody>
+    </table>
     </div>
-  </table>
   <!-- Room Info -->
-
-
-
-
   <!-- ReviewModal -->
   <div [ngClass]="reviewmodel ? 'modal fade show d-block' : 'modal fade'" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: #dce0e2ab;">
@@ -157,10 +160,10 @@
           <div class="mb-3">
             <div class="modal-body" style="width: 100%; float: none; margin: 0 auto">
               <form #addForm="ngForm" (ngSubmit)="addReview(addForm)" name="myform" id="myform" method="post">
-                <textarea class="form-control" ngModel name="reviewContent" #reviewContent="ngModel" id="exampleFormControlTextarea1"
-                  maxlength="300" rows="3" required></textarea>
-                <input type="hidden" ngModel name="userId"/>
+                <textarea class="form-control" ngModel name="reviewContent" #reviewContent="ngModel" id="exampleFormControlTextarea1" maxlength="300" rows="3" required></textarea>
+                <input type="hidden" ngModel name="userid"/>
                 <input type="hidden" ngModel name="hotelid"/>
+                <input type="hidden" ngModel name="hotelName"/>
                 <fieldset>
                   <legend>호텔 리뷰 및 평점 주기</legend>
                   <input type="radio" ngModel name="reviewScore" value="5" id="rate5"><label for="rate5">⭐</label>
@@ -180,8 +183,5 @@
       </div>
     </div>
   </div>
-
 </div>
 </div>
-
- 

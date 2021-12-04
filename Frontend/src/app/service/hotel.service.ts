@@ -24,5 +24,4 @@ export class HotelService {
   public SearchHotelList(keyword1:string, keyword2:string, pageNo:number): Observable<HotelMain[]>{
     return this.http.get<HotelMain[]>(`${this.serverUrl}/main/search?page=${pageNo}&keyword1=${keyword1}&keyword2=${keyword2}`)
   }
-
 }

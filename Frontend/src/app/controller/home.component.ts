@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: '../view/home.component.html',
@@ -10,10 +9,7 @@ export class HomeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
   
   public locations : string[] = ["서울", "부산", "제주", "강원도"];
-
-  
 }

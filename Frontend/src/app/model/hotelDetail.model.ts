@@ -16,5 +16,4 @@ export interface HotelDetailMain{
     publicpc:string;
     publicshower:string;
     bbq:string;
-    
 }

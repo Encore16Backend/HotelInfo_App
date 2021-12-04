@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class RoomService {
-
   private serverUrl = environment.backEndUrl;
 
   constructor(private http:HttpClient) { }
